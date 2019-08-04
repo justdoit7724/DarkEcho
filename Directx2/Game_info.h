@@ -1,0 +1,35 @@
+#pragma once
+#include "Math.h"
+#include "Debugging.h"
+
+#define RED Vector3(1,0,0)
+
+#define SCREEN_WIDTH 960
+#define SCREEN_HEIGHT 960
+#define MAP_WIDTH (SCREEN_WIDTH*3)
+#define MAP_HEIGHT (SCREEN_HEIGHT*3)
+#define MAP_RESOLUTION (MAP_WIDTH*MAP_HEIGHT)
+
+//map
+#define MAP_DIVISION_NUM_WIDTH 30
+#define MAP_DIVISION_NUM_HEIGHT 30
+//edit
+#define MAP_DIVISION_LENGTH_WIDTH (MAP_WIDTH/MAP_DIVISION_NUM_WIDTH)
+#define MAP_DIVISION_LENGTH_HEIGHT (MAP_HEIGHT/MAP_DIVISION_NUM_HEIGHT)
+
+
+#define WAVE_SPEED 300
+#define WAVE_REFLECT_ONLY 3
+#define WAVE_KINEMATIC 2
+#define WAVE_NORMAL 1
+#define WAVE_INACTIVE 0
+
+#define WAVE_RAD 2.0f
+#define WAVE_DEST 5.0f
+
+#define	SPACE_NORMAL 0xffe0e0e0
+#define	SPACE_WATER 0xffff0000
+#define	SPACE_TRAP 0xff0000ff
+#define	SPACE_DEST 0xffffffff
+
+
