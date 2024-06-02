@@ -137,7 +137,8 @@ void WaveMgr::UpdateRenderResource(ID3D11DeviceContext* dContext)
 	dContext->CSSetUnorderedAccessViews(0, 1, renderResource.UAV(), nullptr);
 	data.Update(dContext, waves);
 	dContext->CSSetShaderResources(0, 1, data.SRV());
-	cb_dest.CSSetData(dContext, &(mapSpace->Dest()));
+	auto data = mapSpace->Dest();
+	cb_dest.CSSetData(dContext, &data);
 	cb_wAtten.CSSetData(dContext, &worldAttenuation, 1);
 	dContext->Dispatch(1, 1, 1);
 	dContext->CSSetUnorderedAccessViews(0, 1, renderResource.NullUAV(), nullptr);

@@ -127,14 +127,16 @@ void Player::Render(ID3D11DeviceContext *dContext)
 
 	for (Footprint& fp : FP_traces) {
 
-		cb_transformation.VSSetData(dContext, &Transformation(fp.geom->WorldMatrix(), Camera::ViewMat()), 0);
+		auto trans = Transformation(fp.geom->WorldMatrix(), Camera::ViewMat());
+		cb_transformation.VSSetData(dContext, &trans, 0);
 		float transparentE = fp.lifeLeft / FP_LIFE_TIME;
 		cb_fpTransparency.PSSetData(dContext, &transparentE, 0);
 		dContext->PSSetShaderResources(0, 1, TextureMgr::Get(fp.texName));
 		fp.geom->Render(dContext);
 	}
 
-	cb_transformation.VSSetData(dContext, &Transformation(FP_stand.geom->WorldMatrix(), Camera::ViewMat()), 0);
+	auto trans = Transformation(FP_stand.geom->WorldMatrix(), Camera::ViewMat());
+	cb_transformation.VSSetData(dContext, &trans, 0);
 	float opaqueE = 1.0f;
 	cb_fpTransparency.PSSetData(dContext, &opaqueE, 0);
 

@@ -84,7 +84,8 @@ void Stone::Render(ID3D11DeviceContext *dContext)
 {
 	shader.SetPipline(dContext);
 
-	cb_transformation.VSSetData(dContext, &Transformation(geom.WorldMatrix(), Camera::ViewMat()), 0);
+	auto trans = Transformation(geom.WorldMatrix(), Camera::ViewMat());
+	cb_transformation.VSSetData(dContext, &trans, 0);
 
 	geom.Render(dContext);
 }

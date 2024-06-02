@@ -35,12 +35,14 @@ void ScreenQuad::Update()
 void ScreenQuad::Render(ID3D11DeviceContext* dContext)
 {
 	shader.SetPipline(dContext);
-	cb_transformation.VSSetData(dContext, &Transformation(screen.WorldMatrix(), Camera::ViewMat()));
+
+	auto trans = Transformation(screen.WorldMatrix(), Camera::ViewMat());
+	cb_transformation.VSSetData(dContext, &trans);
 	cb_pos.PSSetData(dContext, &(screen.pos));
 	float wAtten = WaveMgr::WorldAttenuation();
 	cb_wAtten.PSSetData(dContext, &wAtten, 1);
-	CB_Enemy temp = enemyEvent->Info();
-	cb_enemies.PSSetData(dContext, &(enemyEvent->Info()), 2);
+	auto info = enemyEvent->Info();
+	cb_enemies.PSSetData(dContext, &info, 2);
 
 	dContext->PSSetShaderResources(0, 1, waveSRV->Get());
 	dContext->PSSetShaderResources(1, 1, mapSpace->SpaceColorSRV());

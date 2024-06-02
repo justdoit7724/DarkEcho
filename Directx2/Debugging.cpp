@@ -252,8 +252,10 @@ void Debugging::Render()
 {
 	if (enableGrid)
 	{
+		auto grid = CB_Grid(gridInterval, gridCamPos, gridHInterval);
+
 		gridShader.SetPipline(dContext);
-		cb_grid->PSSetData(dContext, &CB_Grid(gridInterval, gridCamPos, gridHInterval));
+		cb_grid->PSSetData(dContext, &grid);
 		gridGeom->Render(dContext);
 	}
 
@@ -281,7 +283,8 @@ void Debugging::Render()
 
 	shader.SetPipline(dContext);
 	for (auto mark : marks) {
-		cb_transformation->VSSetData(dContext, &Transformation(mark.second.quad->WorldMatrix(), Camera::ViewMat()), 0);
+		auto trans = Transformation(mark.second.quad->WorldMatrix(), Camera::ViewMat());
+		cb_transformation->VSSetData(dContext, &trans, 0);
 		cb_color->PSSetData(dContext, &(mark.second.color), 0);
 		mark.second.quad->Render(dContext);
 	}
